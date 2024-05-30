@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 10;
+            padding: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #recipe-container {
+            padding: 70px;
+            width: 1100px;
+            border: 6px solid #cccccc;
+            border-radius: 8px;
+            background-color: #fff;
+            animation: glowingBorder 2s infinite alternate; 
+            box-shadow: 0 0 10px rgba(210, 30, 30, 0.5); 
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            margin-top: 380px; 
+        }
+        #dish-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: rgb(210, 30, 30);
+        }
+    </style>
+</head>
+<body>
+    <div id="recipe-container">
+        <div id="dish-name"></div>
+        <div id="recipe-content"></div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipe = urlParams.get('recipe');
+            const recipeContainer = document.getElementById('recipe-container');
+            const dishNameContainer = document.getElementById('dish-name');
+            const recipeContent = document.getElementById('recipe-content');
+
+            if (recipe) {
+                const decodedRecipe = decodeURIComponent(recipe);
+                const recipeLines = decodedRecipe.split('\n');
+
+               
+                if (recipeLines.length > 0) {
+                    dishNameContainer.innerText = recipeLines[0];
+                    recipeContent.innerText = decodedRecipe.substring(recipeLines[0].length + 1); 
+                } else {
+                    recipeContent.innerText = decodedRecipe;
+                }
+            } else {
+                recipeContainer.innerText = 'Recipe not found.';
+            }
+        };
+    </script>
+</body>
+</html>
